@@ -1,4 +1,4 @@
-name: content-web
+me: content-web
 
 # This workflow is triggered on push to the 'content-web' directory of the  master branch of the repository
 on:
@@ -37,16 +37,16 @@ jobs:
       - name: Login to ACR
         uses: docker/login-action@v1
         with:
-	    registry: ${{ env.containerRegistry }}
+            registry: ${{ env.containerRegistry }}
             username: ${{ secrets.ACR_USERNAME }}
-            password: ${{ secrets.ACR_PASSWORD }}		
-      - name: Build and push an image to container registry
+            password: ${{ secrets.ACR_PASSWORD }}
+	  - name: Build and push an image to container registry
         uses: docker/build-push-action@v2
         with:
-            context: ${{ env.dockerfilePath  }}
-            file: "${{ env.dockerfilePath }}/Dockerfile"
-            pull: true
-            push: true
-            tags: |
-               ${{ env.containerRegistry }}/${{ env.imageRepository }}:${{ env.tag }}
-               ${{ env.containerRegistry }}/${{ env.imageRepository }}:latest
+          context: ${{ env.dockerfilePath  }}
+          file: "${{ env.dockerfilePath }}/Dockerfile"
+          pull: true
+          push: true
+          tags: |
+            ${{ env.containerRegistry }}/${{ env.imageRepository }}:${{ env.tag }}
+            ${{ env.containerRegistry }}/${{ env.imageRepository }}:latest
